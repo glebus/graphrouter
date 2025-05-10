@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RootView: View {
-    @EnvironmentObject var router: BaseRouter
+    @ObservedObject var router: BaseRouter
 
     var body: some View {
         VStack {

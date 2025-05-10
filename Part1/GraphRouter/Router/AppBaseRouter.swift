@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct AppBaseRouter: ViewModifier {
-    @EnvironmentObject var router: BaseRouter
+    @ObservedObject var router: BaseRouter
 
     func body(content: Content) -> some View {
         content
@@ -15,11 +15,8 @@ struct AppBaseRouter: ViewModifier {
                 switch destination {
                 case .sheet1:
                     if let childRouter = router.childRouter {
-                        Sheet1()
-                            .withBaseAppRouter()
-                            .environmentObject(childRouter)
-                    } else {
-                        Sheet1()
+                        Sheet1(router: childRouter)
+                            .withBaseAppRouter(childRouter)
                     }
                 }
             }
@@ -27,7 +24,7 @@ struct AppBaseRouter: ViewModifier {
 }
 
 extension View {
-    public func withBaseAppRouter() -> some View {
-        modifier(AppBaseRouter())
+    func withBaseAppRouter(_ router: BaseRouter) -> some View {
+        modifier(AppBaseRouter(router: router))
     }
 }

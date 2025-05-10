@@ -13,9 +13,8 @@ struct GraphRouterApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
-                .withBaseAppRouter()
-                .environmentObject(router)
+            RootView(router: router)
+                .withBaseAppRouter(router)
         }
     }
 }

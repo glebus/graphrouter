@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct Sheet1: View {
-    @EnvironmentObject var router: BaseRouter
+    @ObservedObject var router: BaseRouter
 
     var body: some View {
         VStack {
