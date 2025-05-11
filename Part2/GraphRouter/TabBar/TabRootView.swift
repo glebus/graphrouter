@@ -27,14 +27,13 @@ extension Tab {
 }
 
 struct TabRootView: View {
-    @EnvironmentObject var router: TabRouter
+    @ObservedObject var router: TabRouter
 
     var body: some View {
         TabView(selection: $router.selectedTab) {
             ForEach(Tab.allCases, id: \.rawValue) { tab in
-                TabStack1()
-                    .withStackRootView()
-                    .environmentObject(router[tab])
+                TabStack1(router: router, stackRouter: router[tab])
+                    .withStackRootView(router: router, stackRouter: router[tab])
                     .tabItem {
                         Image(systemName: tab.icon)
                         Text(tab.title)

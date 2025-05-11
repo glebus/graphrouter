@@ -7,17 +7,20 @@
 import SwiftUI
 
 struct AppStackRouter: ViewModifier {
-    @EnvironmentObject var router: StackRouter
+    let router: BaseRouter
+    @ObservedObject var stackRouter: StackRouter
 
     func body(content: Content) -> some View {
-        NavigationStack(path: $router.paths) {
+        NavigationStack(path: $stackRouter.paths) {
             content
                 .navigationDestination(for: StackDestination.self) { destination in
                     switch destination {
                     case .stack2:
-                        Stack2()
+                        Stack2(router: router)
                     case .tabStack2:
-                        TabStack2()
+                        if let tabRouter = router as? TabRouter {
+                            TabStack2(router: tabRouter, stackRouter: stackRouter)
+                        }
                     }
                 }
         }
@@ -25,7 +28,7 @@ struct AppStackRouter: ViewModifier {
 }
 
 extension View {
-    public func withStackRootView() -> some View {
-        modifier(AppStackRouter())
+    func withStackRootView(router: BaseRouter, stackRouter: StackRouter) -> some View {
+        modifier(AppStackRouter(router: router, stackRouter: stackRouter))
     }
 }

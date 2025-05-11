@@ -7,31 +7,31 @@
 import SwiftUI
 
 struct Stack1: View {
-    @EnvironmentObject var router: StackRouter
-    @EnvironmentObject var sheetRouter: BaseRouter
+    let router: BaseRouter
+    let stackRouter: StackRouter
 
     var body: some View {
         VStack {
             Button (action: {
-                router.push(.stack2)
+                stackRouter.push(.stack2)
             }, label: {
                 Text("Push Stack2")
             })
 
             Button (action: {
-                sheetRouter.presetSheet(.sheet1)
+                router.presetSheet(.sheet1)
             }, label: {
                 Text("Present Sheet1")
             })
 
             Button (action: {
-                sheetRouter.close()
+                router.close()
             }, label: {
                 Text("Close Stack")
             })
 
             Button (action: {
-                sheetRouter.closeToRoot()
+                router.closeToRoot()
             }, label: {
                 Text("Close to Root")
             })

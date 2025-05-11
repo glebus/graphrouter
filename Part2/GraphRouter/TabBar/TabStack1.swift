@@ -7,8 +7,8 @@
 import SwiftUI
 
 struct TabStack1: View {
-    @EnvironmentObject var router: TabRouter
-    @EnvironmentObject var stackRouter: StackRouter
+    let router: TabRouter
+    let stackRouter: StackRouter
 
     var body: some View {
         VStack {
